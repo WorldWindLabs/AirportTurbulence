@@ -1,0 +1,17 @@
+# Static Demo - ignore development files only
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+*.tmp
+*.temp
+
+# Keep all demo files for deployment
+!index.html
+!js/
+!css/
+!README.md
+!package.json
+!DEPLOYMENT_GUIDE.md
+!STATIC_DEMO_SUMMARY.md
