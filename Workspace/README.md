@@ -1,4 +1,24 @@
-# 🌪️ Airport Turbulence Visualization System
+# 🌪️ Airport Turbulence V## 🚀 Quick Start (For Developers)
+
+### Option 1: Super Easy Setup (For Students)
+```bash
+# Windows - Just double-click this file:
+EASY_SETUP.bat
+
+# Or run the Python version (cross-platform):
+python easy_setup.py
+```
+
+### Option 2: One-Command Setup (Recommended)
+```bash
+# Windows
+start.bat
+
+# or Python script
+python start.py
+```
+
+### Option 3: Manual Setup System
 
 A real-time 3D visualization system for airport turbulence conditions using Web WorldWind and Python Flask.
 
@@ -14,7 +34,17 @@ A real-time 3D visualization system for airport turbulence conditions using Web 
 - **⚡ Auto-refresh**: Background updates every 30 minutes
 - **🔌 REST API**: Clean Flask backend with comprehensive endpoints
 
-## 🚀 Quick Start
+## 🎓 For Students & Beta Testers
+
+**New to coding?** We've got you covered with detailed, beginner-friendly guides:
+
+- **[📚 Complete Student Setup Guide](STUDENT_SETUP_GUIDE.md)** - Step-by-step instructions for high school students (assumes no prior experience)
+- **[� Quick Reference Card](QUICK_REFERENCE.md)** - Print-friendly command reference 
+- **[🎬 Video Setup Script](VIDEO_SETUP_SCRIPT.md)** - For creating walkthrough videos
+
+These guides are specifically designed for students who are beta testing the application and may not have development experience.
+
+## �🚀 Quick Start (For Developers)
 
 ### Option 1: One-Command Setup (Recommended)
 ```bash
