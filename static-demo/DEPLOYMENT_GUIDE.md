@@ -20,13 +20,15 @@ npm install -g surge
 
 ### Step 2: Navigate to Static Demo Directory
 
-```powershell
-cd "C:\Users\cyber\Repositories\WorldWindLabs\AirportTurbulenceAnalysis\Workspace\static-demo"
+```bash
+cd static-demo
 ```
 
 ### Step 3: Deploy to Surge
 
-```powershell
+```bash
+npm run deploy-surge
+# or
 surge
 ```
 
@@ -57,9 +59,9 @@ Your demo will be live at: `https://your-chosen-domain.surge.sh`
 
 To update the demo after making changes:
 
-```powershell
-cd "C:\Users\cyber\Repositories\WorldWindLabs\AirportTurbulenceAnalysis\Workspace\static-demo"
-surge
+```bash
+cd static-demo
+npm run deploy-surge
 ```
 
 Surge remembers your domain, so it will update the existing deployment.

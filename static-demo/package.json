@@ -1,0 +1,40 @@
+{
+  "name": "airport-turbulence-visualization-demo",
+  "version": "1.0.0",
+  "description": "Static demo of Airport Turbulence Visualization with interactive 3D globe showing real-time simulated turbulence data for 8 major airports",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "serve": "python3 -m http.server 8080",
+    "deploy-surge": "surge",
+    "deploy-gh-pages": "git subtree push --prefix static-demo origin gh-pages"
+  },
+  "keywords": [
+    "aviation",
+    "turbulence",
+    "visualization",
+    "3d",
+    "worldwind",
+    "weather",
+    "airports",
+    "demo",
+    "static"
+  ],
+  "author": "WorldWind Labs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WorldWindLabs/AirportTurbulenceAnalysis.git"
+  },
+  "homepage": "https://github.com/WorldWindLabs/AirportTurbulenceAnalysis",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ]
+}
