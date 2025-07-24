@@ -1,2 +1,2 @@
-# 2025 Summer Intern project: Airport Turbulence Analysis
+# 2025 Summer Internship project: Airport Turbulence Analysis
 
