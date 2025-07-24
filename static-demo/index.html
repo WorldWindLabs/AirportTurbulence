@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Turbulence Visualization - Static Demo</title>
+    <link rel="stylesheet" href="css/demo-style.css">
+    
+    <!-- Meta tags for social sharing -->
+    <meta name="description" content="Real-time 3D visualization of airport turbulence data using NASA World Wind. Interactive demo showing turbulence levels at major airports worldwide.">
+    <meta name="keywords" content="airport, turbulence, visualization, 3D, NASA World Wind, weather, aviation">
+    <meta name="author" content="WorldWind Labs">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Airport Turbulence Visualization - Interactive Demo">
+    <meta property="og:description" content="Explore real-time turbulence data at major airports with this stunning 3D visualization">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Airport Turbulence Visualization - Interactive Demo">
+    <meta property="twitter:description" content="Explore real-time turbulence data at major airports with this stunning 3D visualization">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Loading Airport Turbulence Visualization</h2>
+            <p>Initializing 3D globe and weather data...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>🌪️ Airport Turbulence Visualization</h1>
+                <div class="header-info">
+                    <span id="status-message">Initializing...</span>
+                    <div id="connection-status" class="connection-status demo">Static Demo Mode</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- 3D Globe Container -->
+            <div id="globe-container" class="globe-container">
+                <canvas id="globe">
+                    Your browser does not support HTML5 Canvas.
+                    <p>This application requires a modern browser with WebGL support.</p>
+                    <p>Please try Chrome, Firefox, Safari, or Edge.</p>
+                </canvas>
+            </div>
+
+            <!-- Control panel -->
+            <div id="control-panel">
+                <div class="panel-section">
+                    <h3>🛬 Airports</h3>
+                    <div id="airport-list">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>🎨 Turbulence Scale</h3>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #03fc1c;"></div>
+                            <span>Minimal (0-20%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #fcfc03;"></div>
+                            <span>Light (20-40%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #fc8c03;"></div>
+                            <span>Moderate (40-60%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #fc0303;"></div>
+                            <span>Severe (60%+)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>🎮 Controls</h3>
+                    <button id="refresh-data-btn" class="btn">
+                        🔄 Refresh Data
+                    </button>
+                    <button id="auto-refresh-btn" class="btn">
+                        ⏸️ Stop Auto-Refresh
+                    </button>
+                    <button id="reset-view-btn" class="btn">🌍 Reset View</button>
+                </div>
+
+                <div class="panel-section">
+                    <h3>ℹ️ Selected Airport</h3>
+                    <div id="airport-details">
+                        <p>Click on an airport to see details</p>
+                    </div>
+                </div>
+
+                <div class="panel-section demo-section">
+                    <h3>🚀 Demo Info</h3>
+                    <div class="demo-info">
+                        <p><strong>Static Demo Mode</strong></p>
+                        <p>• No backend server required</p>
+                        <p>• Simulated real-time data updates</p>
+                        <p>• 8 major airports included</p>
+                        <p>• Perfect for sharing & presentations</p>
+                        
+                        <div class="demo-links">
+                            <a href="https://github.com/WorldWindLabs/AirportTurbulenceAnalysis" target="_blank" class="demo-link">
+                                📂 View Source Code
+                            </a>
+                            <a href="https://worldwind.arc.nasa.gov/" target="_blank" class="demo-link">
+                                🌍 NASA World Wind
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Weather data simulation based on <a href="https://aviationweather.gov/" target="_blank" rel="noopener">Aviation Weather Center</a> | 
+               Visualization powered by <a href="https://worldwind.arc.nasa.gov/" target="_blank" rel="noopener">NASA World Wind</a> |
+               <strong>Demo Mode</strong> - No real weather data</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Dependencies -->
+    <!-- NASA World Wind (with fallback) -->
+    <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/worldwind.min.js"></script>
+    <script src="js/worldwind-mock.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/mock-data.js"></script>
+    <script src="js/static-api.js"></script>
+    <script src="js/turbulence-visualizer.js"></script>
+    <script src="js/static-demo-app.js"></script>
+
+    <!-- Demo initialization message -->
+    <script>
+        console.log(`
+        🎯 Airport Turbulence Visualization - Static Demo
+        =================================================
+        
+        This is a static demo version that runs entirely in your browser!
+        
+        Features:
+        • 3D interactive globe with atmospheric effects
+        • Simulated real-time turbulence data for 8 major airports  
+        • No backend server required - perfect for surge.sh deployment
+        • Data updates every 30 seconds with realistic variations
+        • Click airports for detailed weather information
+        
+        Perfect for:
+        • Sharing demos quickly
+        • Portfolio presentations
+        • Educational purposes
+        • Prototyping and testing
+        
+        Built with NASA World Wind and modern web technologies.
+        `);
+
+        // Initialize the application when DOM is ready
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('DOM ready, initializing static demo app...');
+            
+            // Initialize the static API
+            window.api = new StaticAPI();
+            console.log('Static API initialized');
+            
+            // Initialize the demo app
+            const app = new StaticDemoApp();
+            await app.initialize();
+            
+            console.log('Static demo app fully initialized!');
+        });
+    </script>
+</body>
+</html>
