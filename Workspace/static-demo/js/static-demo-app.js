@@ -82,8 +82,8 @@ class StaticDemoApp {
             const response = await this.api.getTurbulenceData();
             
             if (response.success) {
-                // Update the visualizer
-                this.visualizer.updateTurbulenceData(response.data);
+                // Update the visualizer (pass full response, not just data)
+                this.visualizer.updateTurbulenceData(response);
                 
                 // Update the airport list
                 this.updateAirportList(response.data);

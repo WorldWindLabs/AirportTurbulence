@@ -128,6 +128,11 @@ body {
     width: 100%;
     height: 100%;
     display: block;
+    /* Prevent canvas from creating scrollbars */
+    max-width: 100%;
+    max-height: 100%;
+    /* Ensure smooth scaling on high-DPI displays */
+    image-rendering: auto;
 }
 
 /* Control panel */

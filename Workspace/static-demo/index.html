@@ -39,7 +39,7 @@
         <!-- Header -->
         <header class="app-header">
             <div class="header-content">
-                <h1>🌍 Airport Turbulence Visualization</h1>
+                <h1>🌪️ Airport Turbulence Visualization</h1>
                 <div class="header-info">
                     <span id="status-message">Initializing...</span>
                     <div id="connection-status" class="connection-status demo">Static Demo Mode</div>
@@ -51,7 +51,7 @@
         <div class="main-content">
             <!-- 3D Globe Container -->
             <div id="globe-container" class="globe-container">
-                <canvas id="globe" width="1200" height="800">
+                <canvas id="globe">
                     Your browser does not support HTML5 Canvas.
                     <p>This application requires a modern browser with WebGL support.</p>
                     <p>Please try Chrome, Firefox, Safari, or Edge.</p>
@@ -61,7 +61,7 @@
             <!-- Control panel -->
             <div id="control-panel">
                 <div class="panel-section">
-                    <h3>📍 Airports</h3>
+                    <h3>🛬 Airports</h3>
                     <div id="airport-list">
                         <!-- Will be populated by JavaScript -->
                     </div>
@@ -172,6 +172,21 @@
         
         Built with NASA World Wind and modern web technologies.
         `);
+
+        // Initialize the application when DOM is ready
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('DOM ready, initializing static demo app...');
+            
+            // Initialize the static API
+            window.api = new StaticAPI();
+            console.log('Static API initialized');
+            
+            // Initialize the demo app
+            const app = new StaticDemoApp();
+            await app.initialize();
+            
+            console.log('Static demo app fully initialized!');
+        });
     </script>
 </body>
 </html>

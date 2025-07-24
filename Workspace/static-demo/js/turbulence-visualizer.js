@@ -8,8 +8,10 @@ class TurbulenceVisualizer {
         this.turbulenceLayer = null;
         this.placemarks = [];
         this.selectedAirport = null;
+        this.canvas = document.getElementById(canvasId);
         
         this.initializeGlobe();
+        this.setupCanvasResizing();
     }
 
     initializeGlobe() {
@@ -44,10 +46,6 @@ class TurbulenceVisualizer {
         this.wwd.addLayer(new WorldWind.CoordinatesDisplayLayer(this.wwd));
         this.wwd.addLayer(new WorldWind.ViewControlsLayer(this.wwd));
 
-        // Create turbulence layer
-        this.turbulenceLayer = new WorldWind.RenderableLayer("Turbulence Data");
-        this.wwd.addLayer(this.turbulenceLayer);
-
         // Set initial camera position (centered over US)
         this.wwd.navigator.lookAtLocation.latitude = 39.8283;
         this.wwd.navigator.lookAtLocation.longitude = -98.5795;
@@ -60,6 +58,53 @@ class TurbulenceVisualizer {
         
         // Start atmospheric layer updates
         this.startAtmosphereUpdates();
+    }
+
+    setupCanvasResizing() {
+        // Initial resize
+        this.resizeCanvas();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            this.resizeCanvas();
+        });
+        
+        // Handle container resize (for maximizing, etc.)
+        if (window.ResizeObserver) {
+            const resizeObserver = new ResizeObserver(() => {
+                this.resizeCanvas();
+            });
+            resizeObserver.observe(this.canvas.parentElement);
+        }
+    }
+
+    resizeCanvas() {
+        const container = this.canvas.parentElement;
+        const containerRect = container.getBoundingClientRect();
+        
+        // Set canvas size to match container
+        const devicePixelRatio = window.devicePixelRatio || 1;
+        const displayWidth = containerRect.width;
+        const displayHeight = containerRect.height;
+        
+        // Set the display size (CSS size)
+        this.canvas.style.width = displayWidth + 'px';
+        this.canvas.style.height = displayHeight + 'px';
+        
+        // Set the actual canvas size to match the display size, scaled by device pixel ratio
+        this.canvas.width = displayWidth * devicePixelRatio;
+        this.canvas.height = displayHeight * devicePixelRatio;
+        
+        // Scale the drawing context so everything draws at the correct size
+        const gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+        if (gl) {
+            gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+        }
+        
+        // Notify WorldWind of the resize
+        if (this.wwd) {
+            this.wwd.redraw();
+        }
     }
 
     startAtmosphereUpdates() {
@@ -294,19 +339,24 @@ class TurbulenceVisualizer {
     }
 
     updateTurbulenceData(turbulenceData) {
+        console.log('updateTurbulenceData called with:', turbulenceData);
+        
         // Clear existing renderables
         this.turbulenceLayer.removeAllRenderables();
         this.placemarks = [];
         
         // Add new data
         if (turbulenceData && turbulenceData.data) {
+            console.log(`Processing ${turbulenceData.data.length} airports`);
             turbulenceData.data.forEach(airport => {
+                console.log(`Processing airport: ${airport.code} at ${airport.latitude}, ${airport.longitude}`);
+                
                 // Add elevated turbulence circle (simplified approach)
                 const elevatedCircle = this.createElevatedTurbulenceCircle(
                     airport.latitude,
                     airport.longitude,
                     airport.turbulence_index,
-                    airport.airport_code
+                    airport.code
                 );
                 this.turbulenceLayer.addRenderable(elevatedCircle);
                 
@@ -315,7 +365,7 @@ class TurbulenceVisualizer {
                     airport.latitude,
                     airport.longitude,
                     airport.turbulence_index,
-                    airport.airport_code
+                    airport.code
                 );
                 this.turbulenceLayer.addRenderable(groundArea);
                 
@@ -323,7 +373,7 @@ class TurbulenceVisualizer {
                 const placemark = this.createAirportPlacemark(
                     airport.latitude,
                     airport.longitude,
-                    airport.airport_code,
+                    airport.code,
                     airport.turbulence_index
                 );
                 this.turbulenceLayer.addRenderable(placemark);
