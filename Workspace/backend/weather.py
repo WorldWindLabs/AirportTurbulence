@@ -230,7 +230,7 @@ def fetch_all_airport_data():
     """Fetch and save data for all monitored airports."""
     airports = ['KSFO', 'KJFK', 'KDFW']
     
-    print(f"🌤️  Fetching weather data at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Fetching weather data at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     for airport in airports:
         print(f"   Fetching {airport}...")
@@ -243,11 +243,11 @@ def fetch_all_airport_data():
             if turbulence_data:
                 save_turbulence_data(airport, lat, lon, turbulence_data, raw_metar)
             else:
-                print(f"✗ Failed to calculate turbulence for {airport}")
+                print(f"Failed to calculate turbulence for {airport}")
         else:
-            print(f"✗ Failed to fetch data for {airport}")
+            print(f"Failed to fetch data for {airport}")
     
-    print("📊 Data fetch completed\n")
+    print("Data fetch completed\n")
 
 if __name__ == '__main__':
     # Test the weather fetching
