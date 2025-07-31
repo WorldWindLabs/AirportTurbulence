@@ -241,13 +241,19 @@ class TurbulenceVisualizer {
              console.log(`Parsing part ${i}: "${part}"`);
              
              // Parse wind (e.g., "27015KT" or "27015G25KT")
-             if (/^\d{5}KT$/.test(part)) {
-                 windSpeed = parseInt(part.substring(3, 5));
-                 console.log(`Found wind speed: ${windSpeed} KT`);
-             } else if (/^\d{5}G\d{2,3}KT$/.test(part)) {
-                 // Handle gusting winds
-                 windSpeed = parseInt(part.substring(3, 5));
-                 console.log(`Found wind speed with gusts: ${windSpeed} KT`);
+             if (/^\d{3}\d{2,3}(G\d{2,3})?KT$/.test(part)) {
+                 const speedMatch = part.match(/^\d{3}(\d{2,3})/);
+                 if (speedMatch) {
+                     windSpeed = parseInt(speedMatch[1]);
+                     console.log(`Found wind speed: ${windSpeed} KT`);
+                 }
+                 if (part.includes('G')) {
+                     const gustMatch = part.match(/G(\d{2,3})/);
+                     if (gustMatch) {
+                         const gustSpeed = parseInt(gustMatch[1]);
+                         console.log(`Found gust speed: ${gustSpeed} KT`);
+                     }
+                 }
              }
              
              // Parse temperature and dew point (e.g., "15/10" or "M15/M10")
