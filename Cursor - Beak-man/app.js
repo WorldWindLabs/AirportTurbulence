@@ -171,12 +171,13 @@ class TurbulenceVisualizer {
         
         try {
             const data = await this.fetchMETARData(airportCode);
-            if (data) {
+            if (data && data.windSpeed !== undefined && data.temperature !== undefined && 
+                data.pressure !== undefined && data.humidity !== undefined) {
                 const turbulenceData = this.calculateTurbulenceIndex(data);
                 this.updateUI(turbulenceData, data);
                 this.updateWorldWindVisualization(turbulenceData, data);
             } else {
-                this.showError('Failed to load turbulence data');
+                this.showError('Failed to load turbulence data: Incomplete or invalid METAR data');
             }
         } catch (error) {
             console.error('Error loading turbulence data:', error);
