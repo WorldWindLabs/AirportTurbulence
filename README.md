@@ -2,5 +2,10 @@
 
 This is a test to produce NASA WorldWind web apps entirely developed via AI agents.
 
-Each directory contains an app that was developed with the platform stated in the directory name. Please note that these apps have not been reviewed by human coders to clear them out of hallucinations and redundancies.
+- Each directory contains an app that was developed with the platform stated in the directory name, followed by the human author.
+- The `Original Python script and example data` directory has an intern-developed script that consults the API from https://aviationweather.gov/api/data/metar
+
+Please note that these apps have not been reviewed by human coders to clear them out of hallucinations and redundancies.
+
+
 
