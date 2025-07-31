@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>WorldWind Simple Test</title>
+    <style>
+        body { margin: 0; padding: 0; }
+        #wwd-canvas { width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+    <canvas id="wwd-canvas" width="1024" height="768">
+        Your browser does not support HTML5 Canvas.
+    </canvas>
+    
+    <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.11.0/worldwind.min.js"></script>
+    <script>
+        window.addEventListener("load", function() {
+            console.log('Page loaded');
+            
+            if (typeof WorldWind === 'undefined') {
+                console.error('WorldWind not loaded');
+                document.body.innerHTML = '<h1 style="color: red;">WorldWind failed to load</h1>';
+                return;
+            }
+            
+            console.log('WorldWind loaded successfully');
+            
+            try {
+                // Create a WorldWindow for the canvas
+                var wwd = new WorldWind.WorldWindow("wwd-canvas");
+                console.log('WorldWind instance created:', wwd);
+                
+                // Add some image layers to the WorldWindow's globe
+                wwd.addLayer(new WorldWind.BMNGOneImageLayer());
+                wwd.addLayer(new WorldWind.BingAerialWithLabelsLayer());
+                
+                // Add view controls to the WorldWindow
+                wwd.addLayer(new WorldWind.ViewControlsLayer(wwd));
+                
+                console.log('Layers added successfully');
+                
+            } catch (error) {
+                console.error('Error initializing WorldWind:', error);
+                document.body.innerHTML = '<h1 style="color: red;">Error: ' + error.message + '</h1>';
+            }
+        });
+    </script>
+</body>
+</html> 

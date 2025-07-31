@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorldWind Test</title>
+    <style>
+        body { margin: 0; padding: 0; }
+        #wwd-canvas { width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+    <canvas id="wwd-canvas"></canvas>
+    
+    <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.11.0/worldwind.min.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            console.log('Page loaded');
+            
+            if (typeof WorldWind === 'undefined') {
+                console.error('WorldWind not loaded');
+                document.body.innerHTML = '<h1 style="color: red;">WorldWind failed to load</h1>';
+                return;
+            }
+            
+            console.log('WorldWind loaded successfully');
+            
+                         try {
+                 const canvas = document.getElementById('wwd-canvas');
+                 console.log('Canvas element:', canvas);
+                 
+                 const wwd = new WorldWind.WorldWindow("wwd-canvas");
+                 console.log('WorldWind instance created:', wwd);
+                 
+                                   // Add basic layers
+                  wwd.addLayer(new WorldWind.BMNGOneImageLayer());
+                  wwd.addLayer(new WorldWind.BingAerialWithLabelsLayer());
+                 
+                 console.log('Layers added successfully');
+                 
+             } catch (error) {
+                console.error('Error initializing WorldWind:', error);
+                document.body.innerHTML = '<h1 style="color: red;">Error: ' + error.message + '</h1>';
+            }
+        });
+    </script>
+</body>
+</html> 

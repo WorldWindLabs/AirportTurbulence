@@ -1,0 +1,33 @@
+{
+  "name": "airport-turbulence-visualization",
+  "version": "1.0.0",
+  "description": "A NASA WorldWind web application for visualizing real-time airport turbulence data",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -c-1 --cors",
+    "dev": "npx http-server -p 8000 -c-1 --cors -o",
+    "serve": "python server.py"
+  },
+  "keywords": [
+    "nasa-worldwind",
+    "turbulence",
+    "aviation",
+    "metar",
+    "weather",
+    "3d-globe",
+    "visualization"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/airport-turbulence-visualization.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/airport-turbulence-visualization/issues"
+  },
+  "homepage": "https://github.com/yourusername/airport-turbulence-visualization#readme"
+} 
