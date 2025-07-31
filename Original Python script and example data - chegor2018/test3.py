@@ -161,7 +161,7 @@ def get_color_for_turbulence(ti):
         return "ff61024c"
 
 def calculate_and_export_heatmap_kml(d,lat,lon):
-    if not data1 or lat is None or lon is None:
+    if not d or lat is None or lon is None:
         print("Missing data; can't export.")
         return
 
