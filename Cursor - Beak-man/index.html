@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Turbulence Visualization - NASA WorldWind</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.11.0/worldwind.min.js" onerror="console.error('Failed to load WorldWind')"></script>
+    <script>
+        // Check if WorldWind loaded successfully
+        window.addEventListener('load', function() {
+            if (typeof WorldWind === 'undefined') {
+                console.error('WorldWind library failed to load');
+                document.body.innerHTML += '<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: red; color: white; padding: 20px; z-index: 10000;">WorldWind library failed to load. Please check your internet connection and refresh the page.</div>';
+            } else {
+                console.log('WorldWind library loaded successfully');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>🌪️ Airport Turbulence Visualization</h1>
+            <p>Real-time turbulence data using NASA WorldWind</p>
+        </header>
+
+        <div class="controls-panel">
+            <div class="airport-selector">
+                <label for="airport-select">Select Airport:</label>
+                <select id="airport-select">
+                    <option value="KSFO">KSFO - San Francisco International</option>
+                    <option value="KJFK">KJFK - John F. Kennedy International</option>
+                    <option value="KDFW">KDFW - Dallas/Fort Worth International</option>
+                </select>
+                <button id="refresh-btn" class="refresh-btn">🔄 Refresh Data</button>
+            </div>
+            
+            <div class="data-display">
+                <div class="data-card">
+                    <h3>Turbulence Index</h3>
+                    <div id="turbulence-index" class="turbulence-value">--</div>
+                    <div id="turbulence-category" class="turbulence-category">--</div>
+                </div>
+                
+                <div class="data-card">
+                    <h3>Weather Data</h3>
+                    <div class="weather-grid">
+                        <div class="weather-item">
+                            <span class="label">Temperature:</span>
+                            <span id="temperature">--</span>
+                        </div>
+                        <div class="weather-item">
+                            <span class="label">Wind Speed:</span>
+                            <span id="wind-speed">--</span>
+                        </div>
+                        <div class="weather-item">
+                            <span class="label">Pressure:</span>
+                            <span id="pressure">--</span>
+                        </div>
+                        <div class="weather-item">
+                            <span class="label">Humidity:</span>
+                            <span id="humidity">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="worldwind-container">
+        <canvas id="wwd-canvas" width="800" height="600"></canvas>
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Loading turbulence data...</p>
+        </div>
+    </div>
+
+        <div class="legend">
+            <h3>Turbulence Intensity Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #1cfc03;"></div>
+                    <span>Low (0.0 - 0.2)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #00fff2;"></div>
+                    <span>Moderate (0.2 - 0.4)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #00b3ff;"></div>
+                    <span>High (0.4 - 0.6)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #0015ff;"></div>
+                    <span>Severe (0.6 - 0.8)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #61024c;"></div>
+                    <span>Extreme (0.8+)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 

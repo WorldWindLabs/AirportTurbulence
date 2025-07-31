@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>METAR Proxy Test</title>
+</head>
+<body>
+    <h1>METAR Proxy Test</h1>
+    <button onclick="testProxy()">Test METAR Proxy</button>
+    <div id="result"></div>
+
+    <script>
+        async function testProxy() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing proxy...';
+            
+            try {
+                console.log('Making request to proxy...');
+                const response = await fetch('http://localhost:8000/proxy-metar?airport=KSFO', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/xml, text/plain, */*'
+                    }
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                const data = await response.text();
+                console.log('Response data length:', data.length);
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = '<h3>Success!</h3><p>Status: ' + response.status + '</p><pre>' + data.substring(0, 500) + '...</pre>';
+                } else {
+                    resultDiv.innerHTML = '<h3>Error:</h3><p>Status: ' + response.status + '</p><pre>' + data + '</pre>';
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                resultDiv.innerHTML = '<h3>Error:</h3><pre>' + error.message + '</pre>';
+            }
+        }
+    </script>
+</body>
+</html> 
